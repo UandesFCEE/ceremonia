@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ceremonia de titulación 2026 · Facultad de Ciencias Económicas y Empresariales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  /* Paleta corporativa Uandes
+     Pantone 3546 C #CE0019 · 7623 C #8A001A · 7620 C #A30D12 · 7626 C #CA3625
+     Pantone 7547 C #131E29 · 7546 C #243746 · 7545 C #415364 · 7544 C #758592
+     Pantone Warm Gray 1 C #D6D1CA (matices 70% y 40%) · Blanco             */
+  :root{
+    --ink:#131E29;        /* P 7547 C */
+    --ink-soft:#415364;   /* P 7545 C */
+    --muted:#758592;      /* P 7544 C */
+    --paper:#EDEBE7;      /* Warm Gray 1 C · matiz 40% */
+    --surface:#FFFFFF;
+    --line:#D6D1CA;       /* Warm Gray 1 C */
+    --line-soft:#E0DCD7;  /* Warm Gray 1 C · matiz 70% */
+    --brass:#CE0019;      /* P 3546 C · color principal */
+    --brass-weak:#FAEAEB;
+    --sky:#8A001A;        /* P 7623 C */
+    --steel:#243746;      /* P 7546 C */
+    --danger:#A30D12;     /* P 7620 C */
+    --focus:#243746;
+    --on-brand:#FFFFFF;
+    color-scheme:light;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  :root:not([data-theme="light"]){
+    @media (prefers-color-scheme: dark){
+      --ink:#F2EFEA;
+      --ink-soft:#BFC7CF;
+      --muted:#758592;
+      --paper:#131E29;      /* P 7547 C */
+      --surface:#1C2A38;
+      --line:#35465A;
+      --line-soft:#243746;  /* P 7546 C */
+      --brass:#F0736B;
+      --brass-weak:#3A1A1C;
+      --sky:#CA3625;        /* P 7626 C */
+      --steel:#758592;
+      --danger:#F0736B;
+      --focus:#BFC7CF;
+      --on-brand:#FFFFFF;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#F2EFEA;
+    --ink-soft:#BFC7CF;
+    --muted:#758592;
+    --paper:#131E29;
+    --surface:#1C2A38;
+    --line:#35465A;
+    --line-soft:#243746;
+    --brass:#F0736B;
+    --brass-weak:#3A1A1C;
+    --sky:#CA3625;
+    --steel:#758592;
+    --danger:#F0736B;
+    --focus:#BFC7CF;
+    --on-brand:#FFFFFF;
+    color-scheme:dark;
+  }
+  *,*::before,*::after{box-sizing:inherit}
+  html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 86px);-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"DM Sans",Arial,Helvetica,sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%}
+
+  /* ---------- barra de progreso ---------- */
+  .rail{
+    position:sticky;
+    top:env(safe-area-inset-top,0px);
+    z-index:10;
+    background:color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  body::before{
+    content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);
+    background:var(--paper);z-index:11;
+  }
+  .rail-inner{
+    max-width:46rem;margin:0 auto;padding:.55rem 1.25rem .6rem;
+    display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+    font-size:.8rem;color:var(--ink-soft);letter-spacing:.01em;
+  }
+  .rail-inner strong{font-weight:600;color:var(--ink)}
+  .bar{height:2px;background:var(--line-soft)}
+  .bar span{display:block;height:100%;width:0;background:var(--brass);transition:width .25s ease}
+
+  /* ---------- encabezado ---------- */
+  .wrap{max-width:46rem;margin:0 auto;padding:0 1.25rem 5rem}
+  header.hero{padding:3.25rem 0 2rem;border-bottom:1px solid var(--line)}
+  .crest{
+    font-size:1rem;font-weight:700;color:var(--ink);
+    margin:0 0 .15rem;letter-spacing:-.01em;
+  }
+  .crest::before{
+    content:"";display:inline-block;width:3px;height:1em;background:var(--brass);
+    margin-right:.55rem;transform:translateY(.12em);
+  }
+  .faculty{font-size:.85rem;color:var(--ink-soft);margin:0 0 1.6rem;padding-left:.9rem}
+  h1{
+    font-weight:700;font-size:clamp(2rem,6.5vw,2.85rem);line-height:1.1;
+    margin:0 0 .6rem;letter-spacing:-.025em;
+  }
+  h1 em{font-style:normal;color:var(--brass)}
+  .lede{max-width:34rem;color:var(--ink-soft);margin:0 0 1.5rem;font-size:1.02rem}
+  .meta{display:flex;flex-wrap:wrap;gap:.4rem .75rem;font-size:.82rem;color:var(--ink-soft)}
+  .meta span{border:1px solid var(--line);border-radius:999px;padding:.2rem .7rem;background:var(--surface)}
+
+  /* ---------- secciones ---------- */
+  section.group{padding:2.6rem 0 .5rem}
+  .group-head{display:flex;align-items:baseline;gap:.7rem;margin:0 0 .3rem}
+  .group-num{
+    color:var(--brass);font-size:.95rem;font-weight:700;
+    font-variant-numeric:tabular-nums;
+  }
+  h2{
+    font-weight:700;font-size:1.35rem;margin:0;letter-spacing:-.02em;
+  }
+  .group-note{color:var(--ink-soft);font-size:.9rem;margin:.45rem 0 0;max-width:33rem}
+
+  /* ---------- preguntas ---------- */
+  .q{padding:1.9rem 0;border-bottom:1px solid var(--line-soft)}
+  .q:last-of-type{border-bottom:0}
+  .q.hidden{display:none}
+  .q-label{display:flex;gap:.8rem;align-items:baseline}
+  .q-num{
+    font-variant-numeric:tabular-nums;font-size:.82rem;color:var(--ink-soft);
+    min-width:1.6rem;padding-top:.15rem;
+  }
+  .q-text{font-weight:500;font-size:1.02rem;margin:0;line-height:1.4}
+  .req{color:var(--brass);font-weight:600}
+  .hint{color:var(--ink-soft);font-size:.85rem;margin:.3rem 0 0}
+  .body{margin-left:2.4rem;margin-top:.9rem}
+  @media (max-width:520px){ .body{margin-left:0} }
+
+  /* ---------- campos ---------- */
+  input[type=text],input[type=tel],input[type=url],input[type=email],select,textarea{
+    width:100%;font:inherit;color:var(--ink);background:var(--surface);
+    border:1px solid var(--line);border-radius:4px;padding:.6rem .7rem;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  textarea{min-height:6.5rem;resize:vertical;line-height:1.5}
+  input::placeholder,textarea::placeholder{color:color-mix(in srgb,var(--ink-soft) 70%,transparent)}
+  input:focus-visible,select:focus-visible,textarea:focus-visible{
+    outline:none;border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 22%,transparent);
+  }
+  .field-row{display:grid;gap:.9rem}
+  @media (min-width:560px){ .field-row.two{grid-template-columns:1fr 1fr} .field-row.phone{grid-template-columns:9rem 1fr} }
+  .sub{display:block;font-size:.8rem;color:var(--ink-soft);margin:0 0 .25rem}
+
+  /* ---------- opciones ---------- */
+  .options{display:grid;gap:.4rem}
+  .options.inline{grid-template-columns:repeat(auto-fit,minmax(8rem,1fr));max-width:24rem}
+  .options.cols2{grid-template-columns:1fr}
+  @media (min-width:600px){ .options.cols2{grid-template-columns:1fr 1fr} }
+  .opt{
+    display:flex;gap:.6rem;align-items:flex-start;
+    border:1px solid var(--line);border-radius:4px;background:var(--surface);
+    padding:.55rem .7rem;cursor:pointer;font-size:.95rem;line-height:1.35;
+    transition:border-color .12s ease,background .12s ease;
+  }
+  .opt:hover{border-color:var(--steel)}
+  .opt input{accent-color:var(--brass);margin:.2rem 0 0;flex:none}
+  .opt:has(input:checked){border-color:var(--brass);background:var(--brass-weak)}
+  .opt:has(input:focus-visible){outline:2px solid var(--focus);outline-offset:1px}
+  .opt.disabled{opacity:.45;cursor:not-allowed}
+  .counter{font-size:.82rem;color:var(--ink-soft);margin:.55rem 0 0}
+  .counter.full{color:var(--brass)}
+
+  /* ---------- matriz ---------- */
+  .matrix-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-left:-.2rem;padding:.2rem}
+  .matrix{min-width:34rem;border-collapse:collapse;width:100%;font-size:.88rem}
+  .matrix th{
+    font-weight:500;color:var(--ink-soft);font-size:.78rem;text-align:center;
+    padding:0 .3rem .55rem;vertical-align:bottom;
+  }
+  .matrix th:first-child{text-align:left}
+  .matrix td{
+    border-top:1px solid var(--line-soft);padding:.55rem .3rem;text-align:center;
+  }
+  .matrix td:first-child{text-align:left;padding-right:.8rem;line-height:1.3}
+  .matrix tr:hover td{background:var(--line-soft)}
+  .matrix input{accent-color:var(--brass);width:1.05rem;height:1.05rem}
+  .matrix .small{display:block;color:var(--ink-soft);font-size:.78rem}
+  .swipe{font-size:.78rem;color:var(--ink-soft);margin:.5rem 0 0}
+  @media (min-width:600px){ .swipe{display:none} }
+
+  /* ---------- validación ---------- */
+  .q.invalid .q-text{color:var(--danger)}
+  .error{color:var(--danger);font-size:.84rem;margin:.55rem 0 0;display:none}
+  .q.invalid .error{display:block}
+
+  /* ---------- envío ---------- */
+  .submit-zone{padding:2.6rem 0 0;border-top:1px solid var(--line);margin-top:1.5rem}
+  .btn{
+    font:inherit;font-weight:500;cursor:pointer;border-radius:4px;
+    padding:.75rem 1.5rem;border:1px solid transparent;
+    transition:background .15s ease,border-color .15s ease,color .15s ease;
+  }
+  .btn-primary{background:#CE0019;color:var(--on-brand)}
+  .btn-primary:hover{background:#8A001A}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--ink)}
+  .btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+  .actions{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+  .submit-note{color:var(--ink-soft);font-size:.85rem;margin:.9rem 0 0;max-width:32rem}
+  .form-error{
+    display:none;margin:0 0 1.1rem;padding:.75rem .9rem;border-left:3px solid var(--danger);
+    background:color-mix(in srgb,var(--danger) 8%,transparent);color:var(--danger);font-size:.9rem;
+  }
+  .form-error.show{display:block}
+
+  /* ---------- confirmación ---------- */
+  .done{display:none;padding:3rem 0 1rem}
+  .done.show{display:block}
+  .done h2{font-size:1.9rem;margin-bottom:.5rem}
+  .summary{
+    margin:1.75rem 0;border-top:1px solid var(--line);font-size:.92rem;
+  }
+  .summary div{
+    display:grid;gap:.15rem .9rem;padding:.7rem 0;border-bottom:1px solid var(--line-soft);
+  }
+  @media (min-width:620px){ .summary div{grid-template-columns:15rem 1fr} }
+  .summary dt{color:var(--ink-soft);font-size:.85rem}
+  .summary dd{margin:0;white-space:pre-wrap}
+  .toast{font-size:.85rem;color:var(--brass);min-height:1.2em;margin:.7rem 0 0}
+
+  footer{
+    margin-top:3.5rem;padding-top:1.2rem;border-top:1px solid var(--line-soft);
+    font-size:.8rem;color:var(--ink-soft);
+  }
+  @media (prefers-reduced-motion: reduce){ *{transition:none !important;scroll-behavior:auto !important} }
+</style>
+</head>
+<body>
+
+<div class="rail">
+  <div class="rail-inner">
+    <span>Ceremonia de titulación 2026</span>
+    <span><strong id="progressCount">0</strong> de <span id="progressTotal">0</span> obligatorias</span>
+  </div>
+  <div class="bar"><span id="progressBar"></span></div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <p class="crest">Universidad de los Andes</p>
+    <p class="faculty">Facultad de Ciencias Económicas y Empresariales</p>
+    <h1>Formulario de <em>egresados</em> y ceremonia de titulación</h1>
+    <p class="lede">Con tus respuestas construimos el documento de egresados, generamos redes de networking y organizamos la ceremonia. Toma unos 10 minutos.</p>
+    <div class="meta">
+      <span>22 preguntas</span>
+      <span>Jueves 26 de noviembre, 18:00</span>
+      <span>Las preguntas con * son obligatorias</span>
+    </div>
+  </header>
+
+  <form id="form" novalidate>
+
+    <!-- ============ 1. Datos de contacto ============ -->
+    <section class="group">
+      <div class="group-head"><span class="group-num">I</span><h2>Tus datos</h2></div>
+
+      <div class="q" data-q="1" data-required="true">
+        <div class="q-label"><span class="q-num">1</span>
+          <p class="q-text"><span class="req">*</span> Ingresa tus nombres y apellidos</p></div>
+        <div class="body">
+          <div class="field-row two">
+            <label><span class="sub">Nombres</span><input type="text" name="nombre" autocomplete="given-name" data-req></label>
+            <label><span class="sub">Apellidos</span><input type="text" name="apellido" autocomplete="family-name" data-req></label>
+          </div>
+          <p class="error">Completa tus nombres y apellidos.</p>
+        </div>
+      </div>
+
+      <div class="q" data-q="2" data-required="true">
+        <div class="q-label"><span class="q-num">2</span>
+          <p class="q-text"><span class="req">*</span> Indícanos tu número celular</p></div>
+        <div class="body">
+          <div class="field-row phone">
+            <label><span class="sub">Código de país</span><input type="text" name="codigo_pais" value="+56" inputmode="tel" data-req></label>
+            <label><span class="sub">Número de teléfono</span><input type="tel" name="telefono" inputmode="tel" placeholder="9 1234 5678" autocomplete="tel-national" data-req></label>
+          </div>
+          <p class="error">Indica tu código de país y número.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2. Situación laboral ============ -->
+    <section class="group">
+      <div class="group-head"><span class="group-num">II</span><h2>Situación laboral</h2></div>
+
+      <div class="q" data-q="3" data-required="true">
+        <div class="q-label"><span class="q-num">3</span>
+          <p class="q-text"><span class="req">*</span> ¿Actualmente estás trabajando?</p></div>
+        <div class="body">
+          <div class="options inline">
+            <label class="opt"><input type="radio" name="trabajando" value="Sí" data-req><span>Sí</span></label>
+            <label class="opt"><input type="radio" name="trabajando" value="No" data-req><span>No</span></label>
+          </div>
+          <p class="error">Selecciona una opción.</p>
+        </div>
+      </div>
+
+      <div class="q hidden" data-q="4" data-required="true" data-show="trabajando=Sí">
+        <div class="q-label"><span class="q-num">4</span>
+          <p class="q-text"><span class="req">*</span> Desde que comenzaste a buscar trabajo, ¿cuánto tiempo pasó hasta que te empleaste?</p></div>
+        <div class="body">
+          <div class="options">
+            <label class="opt"><input type="radio" name="tiempo_busqueda" value="Conseguí trabajo antes de egresar o titularme" data-req><span>Conseguí trabajo antes de egresar o titularme</span></label>
+            <label class="opt"><input type="radio" name="tiempo_busqueda" value="Menos de 1 mes" data-req><span>Menos de 1 mes</span></label>
+            <label class="opt"><input type="radio" name="tiempo_busqueda" value="De 1 a menos de 3 meses" data-req><span>De 1 a menos de 3 meses</span></label>
+            <label class="opt"><input type="radio" name="tiempo_busqueda" value="De 3 a menos de 6 meses" data-req><span>De 3 a menos de 6 meses</span></label>
+            <label class="opt"><input type="radio" name="tiempo_busqueda" value="De 6 a menos de 12 meses" data-req><span>De 6 a menos de 12 meses</span></label>
+            <label class="opt"><input type="radio" name="tiempo_busqueda" value="12 meses o más" data-req><span>12 meses o más</span></label>
+          </div>
+          <p class="error">Selecciona una opción.</p>
+        </div>
+      </div>
+
+      <div class="q hidden" data-q="5" data-required="true" data-show="trabajando=Sí">
+        <div class="q-label"><span class="q-num">5</span>
+          <p class="q-text"><span class="req">*</span> ¿Cómo conseguiste el trabajo?</p></div>
+        <div class="body">
+          <div class="options cols2">
+            <label class="opt"><input type="radio" name="via_trabajo" value="Continuación de la práctica profesional" data-req><span>Continuación de la práctica profesional</span></label>
+            <label class="opt"><input type="radio" name="via_trabajo" value="LinkedIn" data-req><span>LinkedIn</span></label>
+            <label class="opt"><input type="radio" name="via_trabajo" value="Portal de empleos" data-req><span>Portal de empleos</span></label>
+            <label class="opt"><input type="radio" name="via_trabajo" value="Recomendaciones" data-req><span>Recomendaciones</span></label>
+            <label class="opt"><input type="radio" name="via_trabajo" value="Otros" data-other="via_trabajo_otro" data-req><span>Otros</span></label>
+          </div>
+          <div class="field-row" style="margin-top:.6rem"><input type="text" name="via_trabajo_otro" placeholder="¿Cuál?" hidden></div>
+          <p class="error">Selecciona una opción.</p>
+        </div>
+      </div>
+
+      <div class="q hidden" data-q="6" data-required="true" data-show="trabajando=Sí">
+        <div class="q-label"><span class="q-num">6</span>
+          <p class="q-text"><span class="req">*</span> ¿En qué empresa estás trabajando actualmente?</p></div>
+        <div class="body"><input type="text" name="empresa" autocomplete="organization" data-req>
+          <p class="error">Esta pregunta es obligatoria.</p></div>
+      </div>
+
+      <div class="q hidden" data-q="7" data-required="true" data-show="trabajando=Sí">
+        <div class="q-label"><span class="q-num">7</span>
+          <p class="q-text"><span class="req">*</span> ¿Cuál es el nombre de tu cargo?</p></div>
+        <div class="body"><input type="text" name="cargo" autocomplete="organization-title" data-req>
+          <p class="error">Esta pregunta es obligatoria.</p></div>
+      </div>
+
+      <div class="q hidden" data-q="8" data-required="true" data-show="trabajando=Sí">
+        <div class="q-label"><span class="q-num">8</span>
+          <p class="q-text"><span class="req">*</span> ¿Cuánto tiempo llevas trabajando en la empresa?</p></div>
+        <div class="body">
+          <p class="hint">Indícalo en años y/o meses.</p>
+          <input type="text" name="antiguedad" placeholder="Por ejemplo: 1 año y 4 meses" data-req>
+          <p class="error">Esta pregunta es obligatoria.</p>
+        </div>
+      </div>
+
+      <div class="q hidden" data-q="9" data-required="true" data-show="trabajando=No">
+        <div class="q-label"><span class="q-num">9</span>
+          <p class="q-text"><span class="req">*</span> ¿Estás buscando trabajo actualmente?</p></div>
+        <div class="body">
+          <div class="options inline">
+            <label class="opt"><input type="radio" name="buscando" value="Sí" data-req><span>Sí</span></label>
+            <label class="opt"><input type="radio" name="buscando" value="No" data-req><span>No</span></label>
+          </div>
+          <p class="error">Selecciona una opción.</p>
+        </div>
+      </div>
+
+      <div class="q hidden" data-q="10" data-required="true" data-show="buscando=No">
+        <div class="q-label"><span class="q-num">10</span>
+          <p class="q-text"><span class="req">*</span> ¿Cuál es el motivo principal?</p></div>
+        <div class="body">
+          <div class="options">
+            <label class="opt"><input type="radio" name="motivo_no_busca" value="Salud personal / familiar" data-req><span>Salud personal / familiar</span></label>
+            <label class="opt"><input type="radio" name="motivo_no_busca" value="Sabático" data-req><span>Sabático</span></label>
+            <label class="opt"><input type="radio" name="motivo_no_busca" value="Viaje" data-req><span>Viaje</span></label>
+            <label class="opt"><input type="radio" name="motivo_no_busca" value="Otras" data-other="motivo_no_busca_otro" data-req><span>Otras</span></label>
+          </div>
+          <div class="field-row" style="margin-top:.6rem"><input type="text" name="motivo_no_busca_otro" placeholder="¿Cuál?" hidden></div>
+          <p class="error">Selecciona una opción.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3. Perfil profesional ============ -->
+    <section class="group">
+      <div class="group-head"><span class="group-num">III</span><h2>Perfil digital</h2></div>
+
+      <div class="q" data-q="11" data-required="true">
+        <div class="q-label"><span class="q-num">11</span>
+          <p class="q-text"><span class="req">*</span> Indícanos la URL de tu perfil en LinkedIn</p></div>
+        <div class="body">
+          <p class="hint">Ejemplo: https://www.linkedin.com/in/tu-perfil</p>
+          <input type="url" name="linkedin" placeholder="https://www.linkedin.com/in/…" data-req>
+          <p class="error">Ingresa una dirección que comience con https://</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4. Vínculo con la Facultad ============ -->
+    <section class="group">
+      <div class="group-head"><span class="group-num">IV</span><h2>Tu mirada sobre la Facultad</h2></div>
+
+      <div class="q" data-q="12" data-required="true">
+        <div class="q-label"><span class="q-num">12</span>
+          <p class="q-text"><span class="req">*</span> En tres palabras, ¿qué crees que distingue a los egresados de la carrera en la sociedad?</p></div>
+        <div class="body">
+          <div class="field-row two">
+            <label><span class="sub">Primera palabra</span><input type="text" name="palabra1" data-req></label>
+            <label><span class="sub">Segunda palabra</span><input type="text" name="palabra2" data-req></label>
+          </div>
+          <div class="field-row two" style="margin-top:.9rem">
+            <label><span class="sub">Tercera palabra</span><input type="text" name="palabra3" data-req></label>
+          </div>
+          <p class="error">Completa las tres palabras.</p>
+        </div>
+      </div>
+
+      <div class="q" data-q="13" data-required="true">
+        <div class="q-label"><span class="q-num">13</span>
+          <p class="q-text"><span class="req">*</span> Según tu experiencia, ¿qué recomendarías a la Facultad para preparar mejor a sus estudiantes para el mundo laboral?</p></div>
+        <div class="body">
+          <p class="hint">Por ejemplo: habilidades, contenidos, prácticas u otros aspectos.</p>
+          <textarea name="recomendacion" data-req></textarea>
+          <p class="error">Esta pregunta es obligatoria.</p>
+        </div>
+      </div>
+
+      <div class="q" data-q="14" data-required="true">
+        <div class="q-label"><span class="q-num">14</span>
+          <p class="q-text"><span class="req">*</span> Ahora que eres alumni, ¿te gustaría participar en actividades organizadas por la Facultad?</p></div>
+        <div class="body">
+          <div class="options inline">
+            <label class="opt"><input type="radio" name="alumni" value="Sí" data-req><span>Sí</span></label>
+            <label class="opt"><input type="radio" name="alumni" value="No" data-req><span>No</span></label>
+          </div>
+          <p class="error">Selecciona una opción.</p>
+        </div>
+      </div>
+
+      <div class="q" data-q="15">
+        <div class="q-label"><span class="q-num">15</span>
+          <p class="q-text">¿Algún comentario o algo que quisieras agregar que faltó en el formulario?</p></div>
+        <div class="body"><textarea name="comentario"></textarea></div>
+      </div>
+    </section>
+
+    <!-- ============ 5. Ceremonia ============ -->
+    <section class="group">
+      <div class="group-head"><span class="group-num">V</span><h2>Ceremonia de titulación</h2></div>
+
+      <div class="q" data-q="16" data-required="true">
+        <div class="q-label"><span class="q-num">16</span>
+          <p class="q-text"><span class="req">*</span> ¿Asistirás a la Ceremonia de Titulación el jueves 26 de noviembre a las 18 horas?</p></div>
+        <div class="body">
+          <div class="options inline">
+            <label class="opt"><input type="radio" name="asiste" value="Sí" data-req><span>Sí</span></label>
+            <label class="opt"><input type="radio" name="asiste" value="No" data-req><span>No</span></label>
+          </div>
+          <p class="error">Selecciona una opción.</p>
+        </div>
+      </div>
+
+      <div class="q hidden" data-q="17" data-show="asiste=No">
+        <div class="q-label"><span class="q-num">17</span>
+          <p class="q-text">¿Por qué razón no asistirás?</p></div>
+        <div class="body"><textarea name="razon_inasistencia"></textarea></div>
+      </div>
+
+      <div class="q hidden" data-q="18" data-show="asiste=No">
+        <div class="q-label"><span class="q-num">18</span>
+          <p class="q-text">¿Te interesaría designar a un familiar para que reciba el diploma en tu nombre durante la ceremonia?</p></div>
+        <div class="body">
+          <div class="options inline">
+            <label class="opt"><input type="radio" name="designa" value="Sí"><span>Sí</span></label>
+            <label class="opt"><input type="radio" name="designa" value="No"><span>No</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="q hidden" data-q="19" data-show="designa=Sí">
+        <div class="q-label"><span class="q-num">19</span>
+          <p class="q-text">¿Cuál es el parentesco?</p></div>
+        <div class="body"><input type="text" name="parentesco" placeholder="Por ejemplo: madre, hermano"></div>
+      </div>
+
+      <div class="q hidden" data-q="20" data-show="designa=Sí">
+        <div class="q-label"><span class="q-num">20</span>
+          <p class="q-text">¿Cuál es el nombre completo de la persona que recibirá el diploma?</p></div>
+        <div class="body"><input type="text" name="nombre_familiar"></div>
+      </div>
+
+      <div class="q" data-q="21">
+        <div class="q-label"><span class="q-num">21</span>
+          <p class="q-text">¿Tu nombre y/o apellido se pronuncia de manera distinta a como se escribe?</p></div>
+        <div class="body">
+          <div class="options inline">
+            <label class="opt"><input type="radio" name="pronunciacion" value="Sí"><span>Sí</span></label>
+            <label class="opt"><input type="radio" name="pronunciacion" value="No"><span>No</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="q hidden" data-q="22" data-show="pronunciacion=Sí">
+        <div class="q-label"><span class="q-num">22</span>
+          <p class="q-text">Indícanos la pronunciación correcta</p></div>
+        <div class="body">
+          <p class="hint">Escríbelo como suena, para que quien lea tu nombre en la ceremonia lo diga bien.</p>
+          <input type="text" name="pronunciacion_texto" placeholder="Por ejemplo: Yaritza se pronuncia “Ya-rít-sa”">
+        </div>
+      </div>
+    </section>
+
+    <div class="submit-zone">
+      <p class="form-error" id="formError"></p>
+      <div class="actions">
+        <button type="submit" class="btn btn-primary">Enviar respuestas</button>
+        <button type="button" class="btn btn-ghost" id="clearBtn">Borrar todo</button>
+      </div>
+      <p class="submit-note">Revisaremos tus datos antes de publicar el documento de egresados. Si necesitas corregir algo después, escríbenos a la Facultad.</p>
+    </div>
+  </form>
+
+  <div class="done" id="done">
+    <div class="group-head"><span class="group-num">✓</span><h2>Respuestas registradas</h2></div>
+    <p class="lede">Gracias por completar el formulario. Nos vemos el jueves 26 de noviembre.</p>
+    <dl class="summary" id="summary"></dl>
+    <div class="actions">
+      <button type="button" class="btn btn-primary" id="downloadBtn">Descargar mis respuestas</button>
+      <button type="button" class="btn btn-ghost" id="copyBtn">Copiar al portapapeles</button>
+      <button type="button" class="btn btn-ghost" id="editBtn">Volver a editar</button>
+    </div>
+    <p class="toast" id="toast"></p>
+  </div>
+
+  <footer>Facultad de Ciencias Económicas y Empresariales · Universidad de los Andes</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var form = document.getElementById("form");
+
+  /* ---------- lógica condicional ---------- */
+  function visible(q){ return !q.classList.contains("hidden"); }
+
+  function applyConditions(){
+    document.querySelectorAll('.q[data-show]').forEach(function(q){
+      var rule = q.getAttribute("data-show").split("=");
+      var ctrl = form.querySelector('input[name="'+rule[0]+'"]:checked');
+      var parentVisible = true;
+      var parentQ = form.querySelector('.q [name="'+rule[0]+'"]');
+      if (parentQ) parentVisible = visible(parentQ.closest(".q"));
+      var show = parentVisible && ctrl && ctrl.value === rule[1];
+      if (!show && visible(q)) clearQuestion(q);
+      q.classList.toggle("hidden", !show);
+    });
+    updateProgress();
+  }
+
+  function clearQuestion(q){
+    q.querySelectorAll("input, textarea, select").forEach(function(el){
+      if (el.type === "radio" || el.type === "checkbox") el.checked = false;
+      else if (el.name !== "codigo_pais") el.value = "";
+      if (el.hasAttribute("data-otherfield")) el.hidden = true;
+    });
+    q.classList.remove("invalid");
+  }
+
+  /* ---------- campos "otro" ---------- */
+  form.addEventListener("change", function(e){
+    var el = e.target;
+    if (el.hasAttribute && el.hasAttribute("data-other")){
+      var extra = form.querySelector('[name="'+el.getAttribute("data-other")+'"]');
+      if (extra){ extra.hidden = !el.checked; if (extra.hidden) extra.value = ""; }
+    }
+    if (el.type === "radio"){
+      // ocultar el campo "otro" de los radios hermanos no elegidos
+      form.querySelectorAll('input[type=radio][name="'+el.name+'"][data-other]').forEach(function(r){
+        var extra = form.querySelector('[name="'+r.getAttribute("data-other")+'"]');
+        if (extra && !r.checked){ extra.hidden = true; extra.value = ""; }
+      });
+    }
+    applyConditions();
+    revalidate(el);
+  });
+
+  form.addEventListener("input", function(e){
+    var c = document.querySelector('[data-count="'+e.target.name+'"]');
+    if (c) c.textContent = e.target.value.length;
+    revalidate(e.target);
+    updateProgress();
+  });
+
+  function questionAnswered(q){
+    var radios = q.querySelectorAll('input[type=radio][data-req]');
+    if (radios.length){
+      return !!form.querySelector('input[name="'+radios[0].name+'"]:checked');
+    }
+    var fields = q.querySelectorAll('[data-req]');
+    if (!fields.length) return true;
+    return Array.prototype.every.call(fields, function(f){
+      if (!f.value.trim()) return false;
+      if (f.type === "url") return /^https?:\/\/.+\..+/i.test(f.value.trim());
+      return true;
+    });
+  }
+
+  function requiredQuestions(){
+    return Array.prototype.filter.call(
+      document.querySelectorAll('.q[data-required="true"]'), visible);
+  }
+
+  function updateProgress(){
+    var qs = requiredQuestions();
+    var ok = qs.filter(questionAnswered).length;
+    document.getElementById("progressCount").textContent = ok;
+    document.getElementById("progressTotal").textContent = qs.length;
+    document.getElementById("progressBar").style.width = qs.length ? (ok/qs.length*100)+"%" : "0%";
+  }
+
+  function revalidate(el){
+    var q = el.closest && el.closest(".q");
+    if (q && q.classList.contains("invalid") && questionAnswered(q)) q.classList.remove("invalid");
+    updateProgress();
+  }
+
+  /* ---------- recolección de respuestas ---------- */
+  function val(name){
+    var el = form.querySelector('[name="'+name+'"]');
+    if (!el) return "";
+    if (el.type === "radio"){
+      var c = form.querySelector('input[name="'+name+'"]:checked');
+      return c ? c.value : "";
+    }
+    return el.value.trim();
+  }
+  function multi(name){
+    return Array.prototype.map.call(
+      form.querySelectorAll('input[name="'+name+'"]:checked'), function(i){ return i.value; });
+  }
+  function collect(){
+    var out = [];
+    function add(label, value){ if (value && value.length) out.push([label, value]); }
+
+    add("Nombre completo", (val("nombre")+" "+val("apellido")).trim());
+    add("Celular", (val("codigo_pais")+" "+val("telefono")).trim());
+    add("¿Trabajando actualmente?", val("trabajando"));
+    add("Tiempo hasta emplearse", val("tiempo_busqueda"));
+    var via = val("via_trabajo");
+    if (via === "Otros" && val("via_trabajo_otro")) via = "Otros: " + val("via_trabajo_otro");
+    add("Cómo consiguió el trabajo", via);
+    add("Empresa", val("empresa"));
+    add("Cargo", val("cargo"));
+    add("Antigüedad en la empresa", val("antiguedad"));
+    add("¿Buscando trabajo?", val("buscando"));
+    var motivo = val("motivo_no_busca");
+    if (motivo === "Otras" && val("motivo_no_busca_otro")) motivo = "Otras: " + val("motivo_no_busca_otro");
+    add("Motivo para no buscar trabajo", motivo);
+    add("LinkedIn", val("linkedin"));
+    add("Tres palabras", [val("palabra1"),val("palabra2"),val("palabra3")].filter(Boolean).join(", "));
+    add("Recomendación a la Facultad", val("recomendacion"));
+    add("¿Participar como alumni?", val("alumni"));
+    add("Comentarios", val("comentario"));
+    add("¿Asiste a la ceremonia?", val("asiste"));
+    add("Razón de inasistencia", val("razon_inasistencia"));
+    add("¿Designa un familiar?", val("designa"));
+    add("Parentesco", val("parentesco"));
+    add("Nombre de quien recibe el diploma", val("nombre_familiar"));
+    add("¿Pronunciación distinta?", val("pronunciacion"));
+    add("Pronunciación correcta", val("pronunciacion_texto"));
+    return out;
+  }
+
+  function asText(rows){
+    var head = "Ceremonia de titulación 2026\nFacultad de Ciencias Económicas y Empresariales · Universidad de los Andes\nEnviado el " +
+      new Date().toLocaleString("es-CL") + "\n\n";
+    return head + rows.map(function(r){ return r[0] + ":\n" + r[1]; }).join("\n\n") + "\n";
+  }
+
+  /* ---------- envío ---------- */
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var falta = requiredQuestions().filter(function(q){ return !questionAnswered(q); });
+    document.querySelectorAll(".q").forEach(function(q){ q.classList.remove("invalid"); });
+    var aviso = document.getElementById("formError");
+
+    if (falta.length){
+      falta.forEach(function(q){ q.classList.add("invalid"); });
+      aviso.textContent = falta.length === 1
+        ? "Falta responder la pregunta " + falta[0].dataset.q + "."
+        : "Faltan " + falta.length + " preguntas obligatorias: " + falta.map(function(q){return q.dataset.q;}).join(", ") + ".";
+      aviso.classList.add("show");
+      falta[0].scrollIntoView({behavior:"smooth", block:"center"});
+      var first = falta[0].querySelector("input, textarea, select");
+      if (first && !first.disabled) setTimeout(function(){ first.focus({preventScroll:true}); }, 400);
+      return;
+    }
+
+    aviso.classList.remove("show");
+    var rows = collect();
+    var dl = document.getElementById("summary");
+    dl.innerHTML = rows.map(function(r){
+      return "<div><dt>"+r[0]+"</dt><dd></dd></div>";
+    }).join("");
+    dl.querySelectorAll("dd").forEach(function(dd,i){ dd.textContent = rows[i][1]; });
+
+    form.style.display = "none";
+    document.querySelector("header.hero").style.display = "none";
+    document.getElementById("done").classList.add("show");
+    window.scrollTo({top:0, behavior:"smooth"});
+    window.__respuestas = asText(rows);
+  });
+
+  /* ---------- acciones posteriores ---------- */
+  var toast = document.getElementById("toast");
+  function say(msg){ toast.textContent = msg; }
+
+  document.getElementById("downloadBtn").addEventListener("click", async function(){
+    var nombre = "respuestas-titulacion-" + (val("apellido") || "egresado").toLowerCase().replace(/\s+/g,"-") + ".txt";
+    try {
+      var dl = window.claude ? await window.claude.use("downloads") : null;
+      if (dl){
+        await dl.save({ filename: nombre, data: window.__respuestas });
+        say("Archivo guardado.");
+        return;
+      }
+    } catch (err) { say("No se pudo guardar el archivo. Usa “Copiar al portapapeles”."); return; }
+    try {
+      var blob = new Blob([window.__respuestas], {type:"text/plain;charset=utf-8"});
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob); a.download = nombre; a.click();
+      URL.revokeObjectURL(a.href);
+      say("Archivo descargado.");
+    } catch (err2){ say("La descarga no está disponible aquí. Usa “Copiar al portapapeles”."); }
+  });
+
+  document.getElementById("copyBtn").addEventListener("click", function(){
+    navigator.clipboard.writeText(window.__respuestas).then(
+      function(){ say("Respuestas copiadas."); },
+      function(){ say("El navegador bloqueó el portapapeles. Selecciona el texto y cópialo a mano."); });
+  });
+
+  document.getElementById("editBtn").addEventListener("click", function(){
+    document.getElementById("done").classList.remove("show");
+    form.style.display = "";
+    document.querySelector("header.hero").style.display = "";
+    window.scrollTo({top:0, behavior:"smooth"});
+  });
+
+  document.getElementById("clearBtn").addEventListener("click", function(){
+    if (!confirm("¿Borrar todas las respuestas?")) return;
+    form.reset();
+    form.querySelectorAll("[hidden]").forEach(function(el){ if (el.tagName === "INPUT") el.hidden = true; });
+    document.querySelectorAll(".q").forEach(function(q){ q.classList.remove("invalid"); });
+    document.getElementById("formError").classList.remove("show");
+    document.querySelectorAll("[data-count]").forEach(function(c){ c.textContent = "0"; });
+    applyConditions();
+    window.scrollTo({top:0, behavior:"smooth"});
+  });
+
+  /* ---------- arranque ---------- */
+  form.querySelectorAll('input[name$="_otro"]').forEach(function(el){
+    el.setAttribute("data-otherfield","true"); el.hidden = true;
+  });
+  applyConditions();
+  updateProgress();
+})();
+</script>
+</body>
+</html>
