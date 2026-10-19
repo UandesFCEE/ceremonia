@@ -758,7 +758,7 @@
     function add(label, value){ if (value && value.length) out.push([label, value]); }
 
     add("Nombre completo", (val("nombre")+" "+val("apellido")).trim());
-    add("RUT", val("rut_busqueda"));
+    add("RUT", conGuion(val("rut_busqueda")));
     add("Celular", (val("codigo_pais")+" "+val("telefono")).trim());
     add("¿Trabajando actualmente?", val("trabajando"));
     add("Tiempo hasta emplearse", val("tiempo_busqueda"));
@@ -953,8 +953,8 @@
       mensaje("Ese RUT no es válido. Revisa el número y el dígito verificador.", "bad");
       return;
     }
-    var rutNorm = conGuion(crudo);
-    rutInput.value = rutNorm;
+    var rutNorm = normalizarRut(crudo).replace(/-/g, "");
+    rutInput.value = conGuion(crudo);
     if (!CONFIG.urlValidarRut){
       mensaje("Falta configurar la URL del flujo de validación.", "bad");
       return;
