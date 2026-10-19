@@ -402,7 +402,6 @@
         <div class="q-label"><span class="q-num">11</span>
           <p class="q-text"><span class="req">*</span> Indícanos la URL de tu perfil en LinkedIn</p></div>
         <div class="body">
-          <p class="hint">Puedes pegarla con o sin https://, por ejemplo linkedin.com/in/tu-perfil</p>
           <input type="text" name="linkedin" inputmode="url" autocapitalize="off" autocorrect="off" placeholder="linkedin.com/in/tu-perfil" data-url data-req>
           <p class="error">Revisa la dirección: debe apuntar a tu perfil de LinkedIn.</p>
         </div>
@@ -417,12 +416,8 @@
         <div class="q-label"><span class="q-num">12</span>
           <p class="q-text"><span class="req">*</span> En tres palabras, ¿qué crees que distingue a los egresados de la carrera en la sociedad?</p></div>
         <div class="body">
-          <div class="field-row tres">
-            <label><span class="sub">Primera</span><input type="text" name="palabra1" data-req></label>
-            <label><span class="sub">Segunda</span><input type="text" name="palabra2" data-req></label>
-            <label><span class="sub">Tercera</span><input type="text" name="palabra3" data-req></label>
-          </div>
-          <p class="error">Completa las tres palabras.</p>
+          <input type="text" name="palabras" data-req>
+          <p class="error">Esta pregunta es obligatoria.</p>
         </div>
       </div>
 
@@ -704,9 +699,7 @@
       Motivo_no_busca:        val("motivo_no_busca"),
       Motivo_no_busca_otro:   val("motivo_no_busca_otro"),
       LinkedIn:               conHttps(val("linkedin")),
-      Palabra_1:              val("palabra1"),
-      Palabra_2:              val("palabra2"),
-      Palabra_3:              val("palabra3"),
+      Palabra_1:              val("palabras"),
       Recomendacion_facultad: val("recomendacion"),
       Alumni_participa:       val("alumni"),
       Comentarios:            val("comentario"),
@@ -741,7 +734,7 @@
     if (motivo === "Otras" && val("motivo_no_busca_otro")) motivo = "Otras: " + val("motivo_no_busca_otro");
     add("Motivo para no buscar trabajo", motivo);
     add("LinkedIn", conHttps(val("linkedin")));
-    add("Tres palabras", [val("palabra1"),val("palabra2"),val("palabra3")].filter(Boolean).join(", "));
+    add("Tres palabras", val("palabras"));
     add("Recomendación a la Facultad", val("recomendacion"));
     add("¿Participar como alumni?", val("alumni"));
     add("Comentarios", val("comentario"));
