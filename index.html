@@ -208,6 +208,26 @@
   .error{color:var(--danger);font-size:.84rem;margin:.55rem 0 0;display:none}
   .q.invalid .error{display:block}
 
+  /* ---------- validacion de RUT ---------- */
+  .gate{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;max-width:26rem}
+  .gate input{flex:1 1 11rem;min-width:0;font-variant-numeric:tabular-nums}
+  .gate .btn{padding:.6rem 1.1rem;flex:none}
+  .gate-msg{margin:.7rem 0 0;font-size:.9rem;min-height:1.3em;color:var(--ink-soft)}
+  .gate-msg.ok{color:var(--ink)}
+  .gate-msg.ok strong{font-weight:600}
+  .gate-msg.bad{color:var(--danger)}
+  .gate-msg .again{
+    background:none;border:0;padding:0;margin-left:.5rem;font:inherit;font-size:.85rem;
+    color:var(--sky);text-decoration:underline;cursor:pointer;
+  }
+  form.locked .gated{display:none}
+  .locked-note{
+    margin:2rem 0 0;padding:.8rem .95rem;border-left:3px solid var(--line);
+    color:var(--ink-soft);font-size:.9rem;background:var(--surface);
+  }
+  form:not(.locked) .locked-note{display:none}
+  .sending{opacity:.6;pointer-events:none}
+
   /* ---------- envío ---------- */
   .submit-zone{padding:2.6rem 0 0;border-top:1px solid var(--line);margin-top:1.5rem}
   .btn{
@@ -282,13 +302,18 @@
 
       <div class="q" data-q="1" data-required="true">
         <div class="q-label"><span class="q-num">1</span>
-          <p class="q-text"><span class="req">*</span> Ingresa tus nombres y apellidos</p></div>
+          <p class="q-text"><span class="req">*</span> Ingresa tu RUT</p></div>
         <div class="body">
-          <div class="field-row two">
-            <label><span class="sub">Nombres</span><input type="text" name="nombre" autocomplete="given-name" data-req></label>
-            <label><span class="sub">Apellidos</span><input type="text" name="apellido" autocomplete="family-name" data-req></label>
+          <p class="hint">Lo usamos solo para identificarte en la nómina de titulados. Con o sin puntos, da lo mismo.</p>
+          <div class="gate">
+            <input type="text" id="rut" inputmode="text" autocomplete="off" placeholder="12.345.678-9" aria-describedby="rutEstado">
+            <button type="button" class="btn btn-primary" id="rutBtn">Verificar</button>
           </div>
-          <p class="error">Completa tus nombres y apellidos.</p>
+          <p class="gate-msg" id="rutEstado" role="status" aria-live="polite"></p>
+          <input type="hidden" name="rut_busqueda" data-req>
+          <input type="hidden" name="nombre">
+          <input type="hidden" name="apellido">
+          <p class="error">Verifica tu RUT antes de continuar.</p>
         </div>
       </div>
 
@@ -534,6 +559,8 @@
       </div>
     </section>
 
+    <p class="locked-note">El resto del formulario se abre cuando verifiques tu RUT.</p>
+
     <div class="submit-zone">
       <p class="form-error" id="formError"></p>
       <div class="actions">
@@ -563,7 +590,37 @@
 (function(){
   "use strict";
 
+  /* ================== CONFIGURACIÓN ==================
+     Pega aquí las dos URL de Power Automate.                      */
+  var CONFIG = {
+    urlValidarRut: "https://defaultb91e1a9b47184623882e6fb655d96b.f0.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/27/workflows/79549aaa24d04e9eba9a2180e653233e/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=sWh6vCjBT6PTMjILGT11lemoFtj3MjA4jZpghNnF5G4",
+    urlGuardar: "https://defaultb91e1a9b47184623882e6fb655d96b.f0.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/18/workflows/f427817cd19b46b68e039d3b924d9bc3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=L0K_KqVyhF6h3ezDV_oHtoiM-7vyz08NTVdf7BfNmVw"
+  };
+  /* =================================================== */
+
   var form = document.getElementById("form");
+
+  /* ---------- RUT ---------- */
+  function normalizarRut(v){
+    return (v || "").replace(/[.\s]/g, "").replace(/^-+|-+$/g, "").toUpperCase();
+  }
+  function conGuion(v){
+    var r = normalizarRut(v).replace(/-/g, "");
+    return r.length < 2 ? r : r.slice(0, -1) + "-" + r.slice(-1);
+  }
+  function dvValido(v){
+    var r = normalizarRut(v).replace(/-/g, "");
+    if (!/^\d{7,8}[0-9K]$/.test(r)) return false;
+    var cuerpo = r.slice(0, -1), dv = r.slice(-1), suma = 0, mul = 2;
+    for (var i = cuerpo.length - 1; i >= 0; i--){
+      suma += parseInt(cuerpo[i], 10) * mul;
+      mul = mul === 7 ? 2 : mul + 1;
+    }
+    var resto = 11 - (suma % 11);
+    var esperado = resto === 11 ? "0" : resto === 10 ? "K" : String(resto);
+    return dv === esperado;
+  }
+
 
   /* ---------- lógica condicional ---------- */
   function visible(q){ return !q.classList.contains("hidden"); }
@@ -663,11 +720,45 @@
     return Array.prototype.map.call(
       form.querySelectorAll('input[name="'+name+'"]:checked'), function(i){ return i.value; });
   }
+  function payload(){
+    var p = {
+      Rut_busqueda:           val("rut_busqueda"),
+      Codigo_pais:            val("codigo_pais"),
+      Telefono:               val("telefono"),
+      Trabajando:             val("trabajando"),
+      Tiempo_hasta_empleo:    val("tiempo_busqueda"),
+      Via_trabajo:            val("via_trabajo"),
+      Via_trabajo_otro:       val("via_trabajo_otro"),
+      Empresa:                val("empresa"),
+      Cargo:                  val("cargo"),
+      Antiguedad:             val("antiguedad"),
+      Buscando_trabajo:       val("buscando"),
+      Motivo_no_busca:        val("motivo_no_busca"),
+      Motivo_no_busca_otro:   val("motivo_no_busca_otro"),
+      LinkedIn:               val("linkedin"),
+      Palabra_1:              val("palabra1"),
+      Palabra_2:              val("palabra2"),
+      Palabra_3:              val("palabra3"),
+      Recomendacion_facultad: val("recomendacion"),
+      Alumni_participa:       val("alumni"),
+      Comentarios:            val("comentario"),
+      Asiste_ceremonia:       val("asiste"),
+      Razon_inasistencia:     val("razon_inasistencia"),
+      Designa_familiar:       val("designa"),
+      Parentesco:             val("parentesco"),
+      Nombre_familiar:        val("nombre_familiar"),
+      Pronunciacion_distinta: val("pronunciacion"),
+      Pronunciacion_correcta: val("pronunciacion_texto")
+    };
+    return p;
+  }
+
   function collect(){
     var out = [];
     function add(label, value){ if (value && value.length) out.push([label, value]); }
 
     add("Nombre completo", (val("nombre")+" "+val("apellido")).trim());
+    add("RUT", val("rut_busqueda"));
     add("Celular", (val("codigo_pais")+" "+val("telefono")).trim());
     add("¿Trabajando actualmente?", val("trabajando"));
     add("Tiempo hasta emplearse", val("tiempo_busqueda"));
@@ -703,7 +794,7 @@
   }
 
   /* ---------- envío ---------- */
-  form.addEventListener("submit", function(e){
+  form.addEventListener("submit", async function(e){
     e.preventDefault();
     var falta = requiredQuestions().filter(function(q){ return !questionAnswered(q); });
     document.querySelectorAll(".q").forEach(function(q){ q.classList.remove("invalid"); });
@@ -722,6 +813,32 @@
     }
 
     aviso.classList.remove("show");
+
+    var btn = form.querySelector(".btn-primary");
+    var textoBtn = btn.textContent;
+    btn.textContent = "Enviando…";
+    form.classList.add("sending");
+
+    if (CONFIG.urlGuardar){
+      try {
+        var r = await fetch(CONFIG.urlGuardar, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain" },
+          body: JSON.stringify(payload())
+        });
+        if (!r.ok) throw new Error("estado " + r.status);
+      } catch (err){
+        btn.textContent = textoBtn;
+        form.classList.remove("sending");
+        aviso.textContent = "No pudimos enviar tus respuestas. Revisa tu conexión e intenta de nuevo; si vuelve a fallar, avísanos a la Facultad.";
+        aviso.classList.add("show");
+        aviso.scrollIntoView({behavior:"smooth", block:"center"});
+        return;
+      }
+    }
+
+    btn.textContent = textoBtn;
+    form.classList.remove("sending");
     var rows = collect();
     var dl = document.getElementById("summary");
     dl.innerHTML = rows.map(function(r){
@@ -781,6 +898,90 @@
     document.querySelectorAll("[data-count]").forEach(function(c){ c.textContent = "0"; });
     applyConditions();
     window.scrollTo({top:0, behavior:"smooth"});
+  });
+
+  /* ---------- bloqueo hasta validar el RUT ---------- */
+  var secciones = Array.prototype.slice.call(form.querySelectorAll("section.group"));
+  secciones.slice(1).forEach(function(sec){ sec.classList.add("gated"); });
+  form.querySelector('.q[data-q="2"]').classList.add("gated");
+  form.querySelector(".submit-zone").classList.add("gated");
+  form.classList.add("locked");
+
+  var rutInput = document.getElementById("rut");
+  var rutBtn   = document.getElementById("rutBtn");
+  var rutMsg   = document.getElementById("rutEstado");
+
+  function mensaje(txt, clase){
+    rutMsg.className = "gate-msg" + (clase ? " " + clase : "");
+    rutMsg.textContent = txt;
+  }
+
+  function desbloquear(nombres, apellidos, rutNorm, fechaPrevia){
+    form.querySelector('[name="rut_busqueda"]').value = rutNorm;
+    form.querySelector('[name="nombre"]').value = nombres;
+    form.querySelector('[name="apellido"]').value = apellidos;
+    form.classList.remove("locked");
+    rutInput.disabled = true; rutBtn.disabled = true;
+    rutMsg.className = "gate-msg ok";
+    rutMsg.innerHTML = "";
+    var t = document.createElement("span");
+    t.textContent = "Hola, ";
+    var n = document.createElement("strong");
+    n.textContent = (nombres + " " + apellidos).trim();
+    rutMsg.appendChild(t); rutMsg.appendChild(n);
+    if (fechaPrevia){
+      var aviso = document.createElement("span");
+      aviso.textContent = " · Ya tenemos una respuesta tuya del " + fechaPrevia +
+                          ". Si envías de nuevo, reemplaza la anterior.";
+      rutMsg.appendChild(aviso);
+    }
+    var otra = document.createElement("button");
+    otra.type = "button"; otra.className = "again"; otra.textContent = "No soy yo";
+    otra.addEventListener("click", function(){
+      form.classList.add("locked");
+      rutInput.disabled = false; rutBtn.disabled = false;
+      rutInput.value = ""; form.querySelector('[name="rut_busqueda"]').value = "";
+      mensaje("", ""); rutInput.focus(); updateProgress();
+    });
+    rutMsg.appendChild(otra);
+    updateProgress();
+  }
+
+  rutBtn.addEventListener("click", async function(){
+    var crudo = rutInput.value;
+    if (!dvValido(crudo)){
+      mensaje("Ese RUT no es válido. Revisa el número y el dígito verificador.", "bad");
+      return;
+    }
+    var rutNorm = conGuion(crudo);
+    rutInput.value = rutNorm;
+    if (!CONFIG.urlValidarRut){
+      mensaje("Falta configurar la URL del flujo de validación.", "bad");
+      return;
+    }
+    rutBtn.disabled = true;
+    mensaje("Buscándote en la nómina…", "");
+    try {
+      var r = await fetch(CONFIG.urlValidarRut, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify({ rut: rutNorm })
+      });
+      var d = await r.json();
+      if (d && d.encontrado){
+        desbloquear(d.nombres || "", d.apellidos || "", rutNorm, d.fecha_envio || "");
+      } else {
+        rutBtn.disabled = false;
+        mensaje("No encontramos ese RUT en la nómina de titulados. Revísalo o escríbenos a la Facultad.", "bad");
+      }
+    } catch (err){
+      rutBtn.disabled = false;
+      mensaje("No pudimos conectar para verificar tu RUT. Intenta de nuevo en un momento.", "bad");
+    }
+  });
+
+  rutInput.addEventListener("keydown", function(e){
+    if (e.key === "Enter"){ e.preventDefault(); rutBtn.click(); }
   });
 
   /* ---------- arranque ---------- */
