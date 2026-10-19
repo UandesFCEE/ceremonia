@@ -16,7 +16,7 @@
     --ink:#131E29;        /* P 7547 C */
     --ink-soft:#415364;   /* P 7545 C */
     --muted:#758592;      /* P 7544 C */
-    --paper:#EDEBE7;      /* Warm Gray 1 C · matiz 40% */
+    --paper:#FFFFFF;      /* Blanco corporativo */
     --surface:#FFFFFF;
     --line:#D6D1CA;       /* Warm Gray 1 C */
     --line-soft:#E0DCD7;  /* Warm Gray 1 C · matiz 70% */
@@ -31,42 +31,6 @@
     box-sizing:border-box;
     padding-top:env(safe-area-inset-top,0px);
     padding-bottom:env(safe-area-inset-bottom,0px);
-  }
-  :root:not([data-theme="light"]){
-    @media (prefers-color-scheme: dark){
-      --ink:#F2EFEA;
-      --ink-soft:#BFC7CF;
-      --muted:#758592;
-      --paper:#131E29;      /* P 7547 C */
-      --surface:#1C2A38;
-      --line:#35465A;
-      --line-soft:#243746;  /* P 7546 C */
-      --brass:#F0736B;
-      --brass-weak:#3A1A1C;
-      --sky:#CA3625;        /* P 7626 C */
-      --steel:#758592;
-      --danger:#F0736B;
-      --focus:#BFC7CF;
-      --on-brand:#FFFFFF;
-      color-scheme:dark;
-    }
-  }
-  :root[data-theme="dark"]{
-    --ink:#F2EFEA;
-    --ink-soft:#BFC7CF;
-    --muted:#758592;
-    --paper:#131E29;
-    --surface:#1C2A38;
-    --line:#35465A;
-    --line-soft:#243746;
-    --brass:#F0736B;
-    --brass-weak:#3A1A1C;
-    --sky:#CA3625;
-    --steel:#758592;
-    --danger:#F0736B;
-    --focus:#BFC7CF;
-    --on-brand:#FFFFFF;
-    color-scheme:dark;
   }
   *,*::before,*::after{box-sizing:inherit}
   html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 86px);-webkit-text-size-adjust:100%}
@@ -164,6 +128,7 @@
   }
   .field-row{display:grid;gap:.9rem}
   @media (min-width:560px){ .field-row.two{grid-template-columns:1fr 1fr} .field-row.phone{grid-template-columns:9rem 1fr} }
+  .field-row.tres{grid-template-columns:repeat(3,1fr);gap:.6rem}
   .sub{display:block;font-size:.8rem;color:var(--ink-soft);margin:0 0 .25rem}
 
   /* ---------- opciones ---------- */
@@ -285,8 +250,7 @@
   <header class="hero">
     <p class="crest">Universidad de los Andes</p>
     <p class="faculty">Facultad de Ciencias Económicas y Empresariales</p>
-    <h1>Formulario de <em>egresados</em> y ceremonia de titulación</h1>
-    <p class="lede">Con tus respuestas construimos el documento de egresados, generamos redes de networking y organizamos la ceremonia. Toma unos 10 minutos.</p>
+    <h1>Formulario Ceremonia de <em>Titulación</em></h1>
     <div class="meta">
       <span>22 preguntas</span>
       <span>Jueves 26 de noviembre, 18:00</span>
@@ -438,9 +402,9 @@
         <div class="q-label"><span class="q-num">11</span>
           <p class="q-text"><span class="req">*</span> Indícanos la URL de tu perfil en LinkedIn</p></div>
         <div class="body">
-          <p class="hint">Ejemplo: https://www.linkedin.com/in/tu-perfil</p>
-          <input type="url" name="linkedin" placeholder="https://www.linkedin.com/in/…" data-req>
-          <p class="error">Ingresa una dirección que comience con https://</p>
+          <p class="hint">Puedes pegarla con o sin https://, por ejemplo linkedin.com/in/tu-perfil</p>
+          <input type="text" name="linkedin" inputmode="url" autocapitalize="off" autocorrect="off" placeholder="linkedin.com/in/tu-perfil" data-url data-req>
+          <p class="error">Revisa la dirección: debe apuntar a tu perfil de LinkedIn.</p>
         </div>
       </div>
     </section>
@@ -453,12 +417,10 @@
         <div class="q-label"><span class="q-num">12</span>
           <p class="q-text"><span class="req">*</span> En tres palabras, ¿qué crees que distingue a los egresados de la carrera en la sociedad?</p></div>
         <div class="body">
-          <div class="field-row two">
-            <label><span class="sub">Primera palabra</span><input type="text" name="palabra1" data-req></label>
-            <label><span class="sub">Segunda palabra</span><input type="text" name="palabra2" data-req></label>
-          </div>
-          <div class="field-row two" style="margin-top:.9rem">
-            <label><span class="sub">Tercera palabra</span><input type="text" name="palabra3" data-req></label>
+          <div class="field-row tres">
+            <label><span class="sub">Primera</span><input type="text" name="palabra1" data-req></label>
+            <label><span class="sub">Segunda</span><input type="text" name="palabra2" data-req></label>
+            <label><span class="sub">Tercera</span><input type="text" name="palabra3" data-req></label>
           </div>
           <p class="error">Completa las tres palabras.</p>
         </div>
@@ -682,7 +644,7 @@
     if (!fields.length) return true;
     return Array.prototype.every.call(fields, function(f){
       if (!f.value.trim()) return false;
-      if (f.type === "url") return /^https?:\/\/.+\..+/i.test(f.value.trim());
+      if (f.hasAttribute("data-url")) return /^(https?:\/\/)?[\w.-]*linkedin\.com\/.+/i.test(f.value.trim());
       return true;
     });
   }
@@ -707,6 +669,12 @@
   }
 
   /* ---------- recolección de respuestas ---------- */
+  function conHttps(v){
+    v = (v || "").trim();
+    if (!v) return "";
+    return /^https?:\/\//i.test(v) ? v : "https://" + v.replace(/^\/+/, "");
+  }
+
   function val(name){
     var el = form.querySelector('[name="'+name+'"]');
     if (!el) return "";
@@ -735,7 +703,7 @@
       Buscando_trabajo:       val("buscando"),
       Motivo_no_busca:        val("motivo_no_busca"),
       Motivo_no_busca_otro:   val("motivo_no_busca_otro"),
-      LinkedIn:               val("linkedin"),
+      LinkedIn:               conHttps(val("linkedin")),
       Palabra_1:              val("palabra1"),
       Palabra_2:              val("palabra2"),
       Palabra_3:              val("palabra3"),
@@ -772,7 +740,7 @@
     var motivo = val("motivo_no_busca");
     if (motivo === "Otras" && val("motivo_no_busca_otro")) motivo = "Otras: " + val("motivo_no_busca_otro");
     add("Motivo para no buscar trabajo", motivo);
-    add("LinkedIn", val("linkedin"));
+    add("LinkedIn", conHttps(val("linkedin")));
     add("Tres palabras", [val("palabra1"),val("palabra2"),val("palabra3")].filter(Boolean).join(", "));
     add("Recomendación a la Facultad", val("recomendacion"));
     add("¿Participar como alumni?", val("alumni"));
