@@ -287,9 +287,9 @@
         <div class="body">
           <div class="field-row phone">
             <label><span class="sub">Código de país</span><input type="text" name="codigo_pais" value="+56" inputmode="tel" data-req></label>
-            <label><span class="sub">Número de teléfono</span><input type="tel" name="telefono" inputmode="tel" placeholder="9 1234 5678" autocomplete="tel-national" data-req></label>
+            <label><span class="sub">Número de teléfono</span><input type="tel" name="telefono" inputmode="numeric" maxlength="9" placeholder="912345678" autocomplete="tel-national" data-tel data-req></label>
           </div>
-          <p class="error">Indica tu código de país y número.</p>
+          <p class="error">El número debe tener 9 dígitos, sin espacios ni puntos.</p>
         </div>
       </div>
     </section>
@@ -617,6 +617,10 @@
   });
 
   form.addEventListener("input", function(e){
+    if (e.target.hasAttribute && e.target.hasAttribute("data-tel")){
+      var limpio = e.target.value.replace(/\D/g, "").slice(0, 9);
+      if (limpio !== e.target.value) e.target.value = limpio;
+    }
     var c = document.querySelector('[data-count="'+e.target.name+'"]');
     if (c) c.textContent = e.target.value.length;
     revalidate(e.target);
@@ -632,6 +636,7 @@
     if (!fields.length) return true;
     return Array.prototype.every.call(fields, function(f){
       if (!f.value.trim()) return false;
+      if (f.hasAttribute("data-tel")) return /^\d{9}$/.test(f.value.trim());
       if (f.hasAttribute("data-url")) return /^(https?:\/\/)?[\w.-]*linkedin\.com\/.+/i.test(f.value.trim());
       return true;
     });
@@ -678,6 +683,7 @@
   }
   function payload(){
     var p = {
+      Resumen:                collect().map(function(r){ return r[0] + ": " + r[1]; }).join("\n"),
       Rut_busqueda:           val("rut_busqueda"),
       Codigo_pais:            val("codigo_pais"),
       Telefono:               val("telefono"),
