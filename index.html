@@ -252,7 +252,7 @@
     <p class="faculty">Facultad de Ciencias Económicas y Empresariales</p>
     <h1>Formulario Ceremonia de <em>Titulación</em></h1>
     <div class="meta">
-      <span>22 preguntas</span>
+      <span>21 preguntas</span>
       <span>Jueves 26 de noviembre, 18:00</span>
       <span>Las preguntas con * son obligatorias</span>
     </div>
@@ -268,7 +268,7 @@
         <div class="q-label"><span class="q-num">1</span>
           <p class="q-text"><span class="req">*</span> Ingresa tu RUT</p></div>
         <div class="body">
-          <p class="hint">Lo usamos solo para identificarte en la nómina de titulados. Con o sin puntos, da lo mismo.</p>
+          <p class="hint">Lo usamos solo para identificarte en la nómina de titulados.</p>
           <div class="gate">
             <input type="text" id="rut" inputmode="text" autocomplete="off" placeholder="12.345.678-9" aria-describedby="rutEstado">
             <button type="button" class="btn btn-primary" id="rutBtn">Verificar</button>
@@ -398,11 +398,11 @@
     <section class="group">
       <div class="group-head"><span class="group-num">III</span><h2>Perfil digital</h2></div>
 
-      <div class="q" data-q="11" data-required="true">
+      <div class="q hidden" data-q="11" data-show="buscando=Sí">
         <div class="q-label"><span class="q-num">11</span>
-          <p class="q-text"><span class="req">*</span> Indícanos la URL de tu perfil en LinkedIn</p></div>
+          <p class="q-text">Indícanos la URL de tu perfil en LinkedIn</p></div>
         <div class="body">
-          <input type="text" name="linkedin" inputmode="url" autocapitalize="off" autocorrect="off" placeholder="linkedin.com/in/tu-perfil" data-url data-req>
+          <input type="text" name="linkedin" inputmode="url" autocapitalize="off" autocorrect="off" placeholder="linkedin.com/in/tu-perfil" data-url>
           <p class="error">Revisa la dirección: debe apuntar a tu perfil de LinkedIn.</p>
         </div>
       </div>
@@ -431,20 +431,8 @@
         </div>
       </div>
 
-      <div class="q" data-q="14" data-required="true">
+      <div class="q" data-q="14">
         <div class="q-label"><span class="q-num">14</span>
-          <p class="q-text"><span class="req">*</span> Ahora que eres alumni, ¿te gustaría participar en actividades organizadas por la Facultad?</p></div>
-        <div class="body">
-          <div class="options inline">
-            <label class="opt"><input type="radio" name="alumni" value="Sí" data-req><span>Sí</span></label>
-            <label class="opt"><input type="radio" name="alumni" value="No" data-req><span>No</span></label>
-          </div>
-          <p class="error">Selecciona una opción.</p>
-        </div>
-      </div>
-
-      <div class="q" data-q="15">
-        <div class="q-label"><span class="q-num">15</span>
           <p class="q-text">¿Algún comentario o algo que quisieras agregar que faltó en el formulario?</p></div>
         <div class="body"><textarea name="comentario"></textarea></div>
       </div>
@@ -454,8 +442,8 @@
     <section class="group">
       <div class="group-head"><span class="group-num">V</span><h2>Ceremonia de titulación</h2></div>
 
-      <div class="q" data-q="16" data-required="true">
-        <div class="q-label"><span class="q-num">16</span>
+      <div class="q" data-q="15" data-required="true">
+        <div class="q-label"><span class="q-num">15</span>
           <p class="q-text"><span class="req">*</span> ¿Asistirás a la Ceremonia de Titulación el jueves 26 de noviembre a las 18 horas?</p></div>
         <div class="body">
           <div class="options inline">
@@ -466,14 +454,14 @@
         </div>
       </div>
 
-      <div class="q hidden" data-q="17" data-show="asiste=No">
-        <div class="q-label"><span class="q-num">17</span>
+      <div class="q hidden" data-q="16" data-show="asiste=No">
+        <div class="q-label"><span class="q-num">16</span>
           <p class="q-text">¿Por qué razón no asistirás?</p></div>
         <div class="body"><textarea name="razon_inasistencia"></textarea></div>
       </div>
 
-      <div class="q hidden" data-q="18" data-show="asiste=No">
-        <div class="q-label"><span class="q-num">18</span>
+      <div class="q hidden" data-q="17" data-show="asiste=No">
+        <div class="q-label"><span class="q-num">17</span>
           <p class="q-text">¿Te interesaría designar a un familiar para que reciba el diploma en tu nombre durante la ceremonia?</p></div>
         <div class="body">
           <div class="options inline">
@@ -483,20 +471,20 @@
         </div>
       </div>
 
-      <div class="q hidden" data-q="19" data-show="designa=Sí">
-        <div class="q-label"><span class="q-num">19</span>
+      <div class="q hidden" data-q="18" data-show="designa=Sí">
+        <div class="q-label"><span class="q-num">18</span>
           <p class="q-text">¿Cuál es el parentesco?</p></div>
         <div class="body"><input type="text" name="parentesco" placeholder="Por ejemplo: madre, hermano"></div>
       </div>
 
-      <div class="q hidden" data-q="20" data-show="designa=Sí">
-        <div class="q-label"><span class="q-num">20</span>
+      <div class="q hidden" data-q="19" data-show="designa=Sí">
+        <div class="q-label"><span class="q-num">19</span>
           <p class="q-text">¿Cuál es el nombre completo de la persona que recibirá el diploma?</p></div>
         <div class="body"><input type="text" name="nombre_familiar"></div>
       </div>
 
-      <div class="q" data-q="21">
-        <div class="q-label"><span class="q-num">21</span>
+      <div class="q" data-q="20">
+        <div class="q-label"><span class="q-num">20</span>
           <p class="q-text">¿Tu nombre y/o apellido se pronuncia de manera distinta a como se escribe?</p></div>
         <div class="body">
           <div class="options inline">
@@ -506,8 +494,8 @@
         </div>
       </div>
 
-      <div class="q hidden" data-q="22" data-show="pronunciacion=Sí">
-        <div class="q-label"><span class="q-num">22</span>
+      <div class="q hidden" data-q="21" data-show="pronunciacion=Sí">
+        <div class="q-label"><span class="q-num">21</span>
           <p class="q-text">Indícanos la pronunciación correcta</p></div>
         <div class="body">
           <p class="hint">Escríbelo como suena, para que quien lea tu nombre en la ceremonia lo diga bien.</p>
@@ -592,6 +580,11 @@
       var show = parentVisible && ctrl && ctrl.value === rule[1];
       if (!show && visible(q)) clearQuestion(q);
       q.classList.toggle("hidden", !show);
+    });
+    form.querySelectorAll("section.group").forEach(function(sec){
+      var qs = sec.querySelectorAll(".q");
+      var alguna = Array.prototype.some.call(qs, function(q){ return visible(q); });
+      sec.style.display = (qs.length && !alguna) ? "none" : "";
     });
     updateProgress();
   }
@@ -701,7 +694,6 @@
       LinkedIn:               conHttps(val("linkedin")),
       Palabra_1:              val("palabras"),
       Recomendacion_facultad: val("recomendacion"),
-      Alumni_participa:       val("alumni"),
       Comentarios:            val("comentario"),
       Asiste_ceremonia:       val("asiste"),
       Razon_inasistencia:     val("razon_inasistencia"),
@@ -736,7 +728,6 @@
     add("LinkedIn", conHttps(val("linkedin")));
     add("Tres palabras", val("palabras"));
     add("Recomendación a la Facultad", val("recomendacion"));
-    add("¿Participar como alumni?", val("alumni"));
     add("Comentarios", val("comentario"));
     add("¿Asiste a la ceremonia?", val("asiste"));
     add("Razón de inasistencia", val("razon_inasistencia"));
