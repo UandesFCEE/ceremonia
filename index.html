@@ -404,7 +404,7 @@
           <p class="q-text"><span class="req">*</span> Indícanos la URL de tu perfil en LinkedIn</p></div>
         <div class="body">
           <input type="text" name="linkedin" inputmode="url" autocapitalize="off" autocorrect="off" placeholder="linkedin.com/in/tu-perfil" data-url data-req>
-          <p class="error">Revisa la dirección: debe apuntar a tu perfil de LinkedIn.</p>
+          <p class="error">Esta pregunta es obligatoria.</p>
         </div>
       </div>
     </section>
@@ -694,7 +694,6 @@
     return Array.prototype.every.call(fields, function(f){
       if (!f.value.trim()) return false;
       if (f.hasAttribute("data-tel")) return /^\d{9}$/.test(f.value.trim());
-      if (f.hasAttribute("data-url")) return /^(https?:\/\/)?[\w.-]*linkedin\.com\/.+/i.test(f.value.trim());
       return true;
     });
   }
