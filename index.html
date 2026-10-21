@@ -878,6 +878,23 @@
     rutMsg.textContent = txt;
   }
 
+  function fechaLegible(v){
+    v = String(v == null ? "" : v).trim();
+    if (!v) return "";
+    var n = Number(v);
+    if (!isNaN(n) && n > 20000 && n < 90000){
+      /* número de serie de Excel: días desde el 30-12-1899 */
+      var d = new Date(Math.round((n - 25569) * 86400000));
+      var dia = d.getUTCDate();
+      var meses = ["enero","febrero","marzo","abril","mayo","junio","julio",
+                   "agosto","septiembre","octubre","noviembre","diciembre"];
+      var hh = ("0" + d.getUTCHours()).slice(-2);
+      var mm = ("0" + d.getUTCMinutes()).slice(-2);
+      return dia + " de " + meses[d.getUTCMonth()] + ", " + hh + ":" + mm + " hrs";
+    }
+    return v;
+  }
+
   function llenarLider(lista, carrera){
     var sel = document.getElementById("lider");
     if (!sel) return;
@@ -918,7 +935,7 @@
     rutMsg.appendChild(t); rutMsg.appendChild(n);
     if (fechaPrevia){
       var aviso = document.createElement("span");
-      aviso.textContent = " · Ya tenemos una respuesta tuya del " + fechaPrevia +
+      aviso.textContent = " · Ya tenemos una respuesta tuya del " + fechaLegible(fechaPrevia) +
                           ". Si envías de nuevo, reemplaza la anterior.";
       rutMsg.appendChild(aviso);
     }
