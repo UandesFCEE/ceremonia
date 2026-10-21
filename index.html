@@ -121,6 +121,7 @@
     border:1px solid var(--line);border-radius:4px;padding:.6rem .7rem;
     transition:border-color .15s ease, box-shadow .15s ease;
   }
+  select{max-width:26rem;appearance:none;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%23415364' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .8rem center;padding-right:2.2rem}
   textarea{min-height:6.5rem;resize:vertical;line-height:1.5}
   input::placeholder,textarea::placeholder{color:color-mix(in srgb,var(--ink-soft) 70%,transparent)}
   input:focus-visible,select:focus-visible,textarea:focus-visible{
@@ -398,7 +399,7 @@
     <section class="group">
       <div class="group-head"><span class="group-num">III</span><h2>Perfil digital</h2></div>
 
-      <div class="q hidden" data-q="11" data-show="buscando=Sí">
+      <div class="q" data-q="11">
         <div class="q-label"><span class="q-num">11</span>
           <p class="q-text">Indícanos la URL de tu perfil en LinkedIn</p></div>
         <div class="body">
@@ -414,15 +415,6 @@
 
       <div class="q" data-q="12" data-required="true">
         <div class="q-label"><span class="q-num">12</span>
-          <p class="q-text"><span class="req">*</span> En tres palabras, ¿qué crees que distingue a los egresados de la carrera en la sociedad?</p></div>
-        <div class="body">
-          <input type="text" name="palabras" data-req>
-          <p class="error">Esta pregunta es obligatoria.</p>
-        </div>
-      </div>
-
-      <div class="q" data-q="13" data-required="true">
-        <div class="q-label"><span class="q-num">13</span>
           <p class="q-text"><span class="req">*</span> Según tu experiencia, ¿qué recomendarías a la Facultad para preparar mejor a sus estudiantes para el mundo laboral?</p></div>
         <div class="body">
           <p class="hint">Por ejemplo: habilidades, contenidos, prácticas u otros aspectos.</p>
@@ -431,10 +423,22 @@
         </div>
       </div>
 
-      <div class="q" data-q="14">
-        <div class="q-label"><span class="q-num">14</span>
+      <div class="q" data-q="13">
+        <div class="q-label"><span class="q-num">13</span>
           <p class="q-text">¿Algún comentario o algo que quisieras agregar que faltó en el formulario?</p></div>
         <div class="body"><textarea name="comentario"></textarea></div>
+      </div>
+
+      <div class="q" data-q="14" data-required="true">
+        <div class="q-label"><span class="q-num">14</span>
+          <p class="q-text"><span class="req">*</span> ¿A quién eliges como líder de tu generación?</p></div>
+        <div class="body">
+          <p class="hint">Aparecen tus compañeros de <span id="carreraVoto">tu carrera</span>.</p>
+          <select name="lider" id="lider" data-req>
+            <option value="">Selecciona a una persona</option>
+          </select>
+          <p class="error">Selecciona a una persona.</p>
+        </div>
       </div>
     </section>
 
@@ -698,8 +702,8 @@
       Motivo_no_busca:        val("motivo_no_busca"),
       Motivo_no_busca_otro:   val("motivo_no_busca_otro"),
       LinkedIn:               conHttps(val("linkedin")),
-      Palabra_1:              val("palabras"),
       Recomendacion_facultad: val("recomendacion"),
+      Lider_generacion:       val("lider"),
       Comentarios:            val("comentario"),
       Asiste_ceremonia:       val("asiste"),
       Razon_inasistencia:     val("razon_inasistencia"),
@@ -732,8 +736,8 @@
     if (motivo === "Otras" && val("motivo_no_busca_otro")) motivo = "Otras: " + val("motivo_no_busca_otro");
     add("Motivo para no buscar trabajo", motivo);
     add("LinkedIn", conHttps(val("linkedin")));
-    add("Tres palabras", val("palabras"));
     add("Recomendación a la Facultad", val("recomendacion"));
+    add("Líder de generación", val("lider"));
     add("Comentarios", val("comentario"));
     add("¿Asiste a la ceremonia?", val("asiste"));
     add("Razón de inasistencia", val("razon_inasistencia"));
@@ -874,6 +878,31 @@
     rutMsg.textContent = txt;
   }
 
+  function llenarLider(lista, carrera){
+    var sel = document.getElementById("lider");
+    if (!sel) return;
+    if (carrera){
+      var et = document.getElementById("carreraVoto");
+      if (et) et.textContent = carrera;
+    }
+    var pregunta = sel.closest(".q");
+    if (!lista || !lista.length){
+      /* sin compañeros en su grupo (por ejemplo MG): no participa de la votación */
+      sel.removeAttribute("data-req");
+      sel.value = "";
+      pregunta.classList.add("hidden");
+      pregunta.removeAttribute("data-required");
+      return;
+    }
+    pregunta.classList.remove("hidden");
+    pregunta.setAttribute("data-required", "true");
+    lista.forEach(function(nombre){
+      var o = document.createElement("option");
+      o.value = nombre; o.textContent = nombre;
+      sel.appendChild(o);
+    });
+  }
+
   function desbloquear(nombres, apellidos, rutNorm, fechaPrevia){
     form.querySelector('[name="rut_busqueda"]').value = rutNorm;
     form.querySelector('[name="nombre"]').value = nombres;
@@ -927,6 +956,7 @@
       });
       var d = await r.json();
       if (d && d.encontrado){
+        llenarLider(d.companeros, d.carrera);
         desbloquear(d.nombres || "", d.apellidos || "", rutNorm, d.fecha_envio || "");
       } else {
         rutBtn.disabled = false;
