@@ -253,7 +253,7 @@
     <p class="faculty">Facultad de Ciencias Económicas y Empresariales</p>
     <h1>Formulario Ceremonia de <em>Titulación</em></h1>
     <div class="meta">
-      <span>21 preguntas</span>
+      <span>22 preguntas</span>
       <span>Jueves 26 de noviembre, 18:00</span>
       <span>Las preguntas con * son obligatorias</span>
     </div>
@@ -399,11 +399,11 @@
     <section class="group">
       <div class="group-head"><span class="group-num">III</span><h2>Perfil digital</h2></div>
 
-      <div class="q" data-q="11">
+      <div class="q" data-q="11" data-required="true">
         <div class="q-label"><span class="q-num">11</span>
-          <p class="q-text">Indícanos la URL de tu perfil en LinkedIn</p></div>
+          <p class="q-text"><span class="req">*</span> Indícanos la URL de tu perfil en LinkedIn</p></div>
         <div class="body">
-          <input type="text" name="linkedin" inputmode="url" autocapitalize="off" autocorrect="off" placeholder="linkedin.com/in/tu-perfil" data-url>
+          <input type="text" name="linkedin" inputmode="url" autocapitalize="off" autocorrect="off" placeholder="linkedin.com/in/tu-perfil" data-url data-req>
           <p class="error">Revisa la dirección: debe apuntar a tu perfil de LinkedIn.</p>
         </div>
       </div>
@@ -440,14 +440,62 @@
           <p class="error">Selecciona a una persona.</p>
         </div>
       </div>
+
+      <div class="q hidden" data-q="15" data-required="true">
+        <div class="q-label"><span class="q-num">15</span>
+          <p class="q-text"><span class="req">*</span> ¿A qué profesor eliges como padrino de tu generación?</p></div>
+        <div class="body">
+          <select name="padrino" id="padrino" data-req>
+            <option value="">Selecciona a un profesor</option>
+            <option value="Matias Acevedo Ferrer">Matias Acevedo Ferrer</option>
+            <option value="Jorge Andres Ale Chilet">Jorge Andres Ale Chilet</option>
+            <option value="Mauricio Andres Barrios Fernandez">Mauricio Andres Barrios Fernandez</option>
+            <option value="Andre Bergoeing Reid">Andre Bergoeing Reid</option>
+            <option value="Javier Ignacio Boncompte Guarda">Javier Ignacio Boncompte Guarda</option>
+            <option value="Carlos Budnevich Le-Fort">Carlos Budnevich Le-Fort</option>
+            <option value="Cristian Alejandro Buzeta Riquelme">Cristian Alejandro Buzeta Riquelme</option>
+            <option value="Sebastian Claro Edwards">Sebastian Claro Edwards</option>
+            <option value="Cristian Gustavo Cuevas Valdes">Cristian Gustavo Cuevas Valdes</option>
+            <option value="Leonardo David Epstein Giwercman">Leonardo David Epstein Giwercman</option>
+            <option value="Elisabeth West Farrelly">Elisabeth West Farrelly</option>
+            <option value="Alvaro Garcia Marin">Alvaro Garcia Marin</option>
+            <option value="Felipe Guzmán González">Felipe Guzmán González</option>
+            <option value="Daniel Federico Habermacher">Daniel Federico Habermacher</option>
+            <option value="Ignacio Inostroza Quezada">Ignacio Inostroza Quezada</option>
+            <option value="Jorge Luis Jara Espinoza">Jorge Luis Jara Espinoza</option>
+            <option value="David Kimber Camussetti">David Kimber Camussetti</option>
+            <option value="Mauricio Larrain Errazuriz">Mauricio Larrain Errazuriz</option>
+            <option value="Luis Alfredo Mendoza Fernandez">Luis Alfredo Mendoza Fernandez</option>
+            <option value="Francisco Javier Morales Flores">Francisco Javier Morales Flores</option>
+            <option value="Isabela Munévar Escalante">Isabela Munévar Escalante</option>
+            <option value="Ana Elisa Pereira Goncalves">Ana Elisa Pereira Goncalves</option>
+            <option value="Nicolas Felipe Riquelme Carrasco">Nicolas Felipe Riquelme Carrasco</option>
+            <option value="Jorge Rodriguez Osorio">Jorge Rodriguez Osorio</option>
+            <option value="Nicolas Roman Purcell">Nicolas Roman Purcell</option>
+            <option value="Juan Pedro Ronconi">Juan Pedro Ronconi</option>
+            <option value="Francisco Javier Rosende Jürgensen">Francisco Javier Rosende Jürgensen</option>
+            <option value="Juan Martin Sotes Paladino">Juan Martin Sotes Paladino</option>
+            <option value="Angel Soto Gamboa">Angel Soto Gamboa</option>
+            <option value="Andre Stenzel">Andre Stenzel</option>
+            <option value="Veronica Talac Ramirez">Veronica Talac Ramirez</option>
+            <option value="Mario Alejandro Tessada Perez">Mario Alejandro Tessada Perez</option>
+            <option value="Francisco Jose Ulloa Picasso">Francisco Jose Ulloa Picasso</option>
+            <option value="Vincent Van Kervel">Vincent Van Kervel</option>
+            <option value="Javier Vasquez Cubillos">Javier Vasquez Cubillos</option>
+            <option value="Juan Pablo Xandri Antuna">Juan Pablo Xandri Antuna</option>
+            <option value="Wei Xiong">Wei Xiong</option>
+          </select>
+          <p class="error">Selecciona a un profesor.</p>
+        </div>
+      </div>
     </section>
 
     <!-- ============ 5. Ceremonia ============ -->
     <section class="group">
       <div class="group-head"><span class="group-num">V</span><h2>Ceremonia de titulación</h2></div>
 
-      <div class="q" data-q="15" data-required="true">
-        <div class="q-label"><span class="q-num">15</span>
+      <div class="q" data-q="16" data-required="true">
+        <div class="q-label"><span class="q-num">16</span>
           <p class="q-text"><span class="req">*</span> ¿Asistirás a la Ceremonia de Titulación el jueves 26 de noviembre a las 18 horas?</p></div>
         <div class="body">
           <div class="options inline">
@@ -458,52 +506,57 @@
         </div>
       </div>
 
-      <div class="q hidden" data-q="16" data-show="asiste=No">
-        <div class="q-label"><span class="q-num">16</span>
-          <p class="q-text">¿Por qué razón no asistirás?</p></div>
-        <div class="body"><textarea name="razon_inasistencia"></textarea></div>
-      </div>
-
-      <div class="q hidden" data-q="17" data-show="asiste=No">
+      <div class="q hidden" data-q="17" data-required="true" data-show="asiste=No">
         <div class="q-label"><span class="q-num">17</span>
-          <p class="q-text">¿Te interesaría designar a un familiar para que reciba el diploma en tu nombre durante la ceremonia?</p></div>
-        <div class="body">
-          <div class="options inline">
-            <label class="opt"><input type="radio" name="designa" value="Sí"><span>Sí</span></label>
-            <label class="opt"><input type="radio" name="designa" value="No"><span>No</span></label>
-          </div>
-        </div>
+          <p class="q-text"><span class="req">*</span> ¿Por qué razón no asistirás?</p></div>
+        <div class="body"><textarea name="razon_inasistencia" data-req></textarea></div>
       </div>
 
-      <div class="q hidden" data-q="18" data-show="designa=Sí">
+      <div class="q hidden" data-q="18" data-required="true" data-show="asiste=No">
         <div class="q-label"><span class="q-num">18</span>
-          <p class="q-text">¿Cuál es el parentesco?</p></div>
-        <div class="body"><input type="text" name="parentesco" placeholder="Por ejemplo: madre, hermano"></div>
-      </div>
-
-      <div class="q hidden" data-q="19" data-show="designa=Sí">
-        <div class="q-label"><span class="q-num">19</span>
-          <p class="q-text">¿Cuál es el nombre completo de la persona que recibirá el diploma?</p></div>
-        <div class="body"><input type="text" name="nombre_familiar"></div>
-      </div>
-
-      <div class="q" data-q="20">
-        <div class="q-label"><span class="q-num">20</span>
-          <p class="q-text">¿Tu nombre y/o apellido se pronuncia de manera distinta a como se escribe?</p></div>
+          <p class="q-text"><span class="req">*</span> ¿Te interesaría designar a un familiar para que reciba el diploma en tu nombre durante la ceremonia?</p></div>
         <div class="body">
           <div class="options inline">
-            <label class="opt"><input type="radio" name="pronunciacion" value="Sí"><span>Sí</span></label>
-            <label class="opt"><input type="radio" name="pronunciacion" value="No"><span>No</span></label>
+            <label class="opt"><input data-req type="radio" name="designa" value="Sí"><span>Sí</span></label>
+            <label class="opt"><input data-req type="radio" name="designa" value="No"><span>No</span></label>
           </div>
+          <p class="error">Selecciona una opción.</p>
         </div>
       </div>
 
-      <div class="q hidden" data-q="21" data-show="pronunciacion=Sí">
+      <div class="q hidden" data-q="19" data-required="true" data-show="designa=Sí">
+        <div class="q-label"><span class="q-num">19</span>
+          <p class="q-text"><span class="req">*</span> ¿Cuál es el parentesco?</p></div>
+        <div class="body"><input type="text" name="parentesco" placeholder="Por ejemplo: madre, hermano" data-req>
+          <p class="error">Esta pregunta es obligatoria.</p></div>
+      </div>
+
+      <div class="q hidden" data-q="20" data-required="true" data-show="designa=Sí">
+        <div class="q-label"><span class="q-num">20</span>
+          <p class="q-text"><span class="req">*</span> ¿Cuál es el nombre completo de la persona que recibirá el diploma?</p></div>
+        <div class="body"><input type="text" name="nombre_familiar" data-req>
+          <p class="error">Esta pregunta es obligatoria.</p></div>
+      </div>
+
+      <div class="q" data-q="21" data-required="true">
         <div class="q-label"><span class="q-num">21</span>
-          <p class="q-text">Indícanos la pronunciación correcta</p></div>
+          <p class="q-text"><span class="req">*</span> ¿Tu nombre y/o apellido se pronuncia de manera distinta a como se escribe?</p></div>
+        <div class="body">
+          <div class="options inline">
+            <label class="opt"><input data-req type="radio" name="pronunciacion" value="Sí"><span>Sí</span></label>
+            <label class="opt"><input data-req type="radio" name="pronunciacion" value="No"><span>No</span></label>
+          </div>
+          <p class="error">Selecciona una opción.</p>
+        </div>
+      </div>
+
+      <div class="q hidden" data-q="22" data-required="true" data-show="pronunciacion=Sí">
+        <div class="q-label"><span class="q-num">22</span>
+          <p class="q-text"><span class="req">*</span> Indícanos la pronunciación correcta</p></div>
         <div class="body">
           <p class="hint">Escríbelo como suena, para que quien lea tu nombre en la ceremonia lo diga bien.</p>
-          <input type="text" name="pronunciacion_texto" placeholder="Por ejemplo: Yaritza se pronuncia “Ya-rít-sa”">
+          <input type="text" name="pronunciacion_texto" placeholder="Por ejemplo: Yaritza se pronuncia “Ya-rít-sa”" data-req>
+          <p class="error">Esta pregunta es obligatoria.</p>
         </div>
       </div>
     </section>
@@ -704,6 +757,7 @@
       LinkedIn:               conHttps(val("linkedin")),
       Recomendacion_facultad: val("recomendacion"),
       Lider_generacion:       val("lider"),
+      Profesor_padrino:       val("padrino"),
       Comentarios:            val("comentario"),
       Asiste_ceremonia:       val("asiste"),
       Razon_inasistencia:     val("razon_inasistencia"),
@@ -738,6 +792,7 @@
     add("LinkedIn", conHttps(val("linkedin")));
     add("Recomendación a la Facultad", val("recomendacion"));
     add("Líder de generación", val("lider"));
+    add("Profesor padrino", val("padrino"));
     add("Comentarios", val("comentario"));
     add("¿Asiste a la ceremonia?", val("asiste"));
     add("Razón de inasistencia", val("razon_inasistencia"));
@@ -903,7 +958,14 @@
       if (et) et.textContent = carrera;
     }
     var pregunta = sel.closest(".q");
+    var padrino = document.getElementById("padrino");
+    var qPadrino = padrino ? padrino.closest(".q") : null;
     if (!lista || !lista.length){
+      if (qPadrino){
+        padrino.removeAttribute("data-req"); padrino.value = "";
+        qPadrino.classList.add("hidden");
+        qPadrino.removeAttribute("data-required");
+      }
       /* sin compañeros en su grupo (por ejemplo MG): no participa de la votación */
       sel.removeAttribute("data-req");
       sel.value = "";
@@ -913,6 +975,11 @@
     }
     pregunta.classList.remove("hidden");
     pregunta.setAttribute("data-required", "true");
+    if (qPadrino){
+      padrino.setAttribute("data-req", "");
+      qPadrino.classList.remove("hidden");
+      qPadrino.setAttribute("data-required", "true");
+    }
     lista.forEach(function(nombre){
       var o = document.createElement("option");
       o.value = nombre; o.textContent = nombre;
